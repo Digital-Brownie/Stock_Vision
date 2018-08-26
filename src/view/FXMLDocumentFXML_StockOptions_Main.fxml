@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentFXML_StockOptions_MainController">
+   <children>
+      <ImageView blendMode="MULTIPLY" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="72.0">
+         <image>
+            <Image url="@../image/STOCKVISION%20LOGO%20V1.0.png" />
+         </image>
+      </ImageView>
+      <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutY="25.0" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <tabs>
+          <Tab text="Customers">
+               <content>
+                  <AnchorPane prefHeight="342.0" prefWidth="800.0">
+                     <children>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="10.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#NewCustomerButtonPushed" prefHeight="50.0" prefWidth="150.0" text="New Customer" />
+                              <Button mnemonicParsing="false" onAction="#removeCustomerButtonPushed" prefHeight="50.0" prefWidth="150.0" text="Remove Customer" />
+                           </children>
+                        </VBox>
+                        <TableView fx:id="custTable" layoutY="190.0" prefHeight="355.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                          <columns>
+                            <TableColumn fx:id="custIDColumn" prefWidth="75.0" text="Customer ID" />
+                            <TableColumn fx:id="custNameColumn" onEditCommit="#changeCustNameCellEvent" prefWidth="111.0" text="Customer Name" />
+                              <TableColumn fx:id="custCompanyColumn" onEditCommit="#changeCustCompanyCellEvent" prefWidth="132.0" text="Customer Company" />
+                          </columns>
+                        </TableView>
+                        <VBox layoutX="180.0" layoutY="25.0">
+                           <children>
+                              <Label fx:id="custNamelbl" text="Customer Name" />
+                              <TextField fx:id="custNametxt" />
+                              <Label fx:id="custCompanylbl" text="Customer Company" />
+                              <TextField fx:id="custCompanytxt" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="addCustBtn" layoutX="348.0" layoutY="84.0" mnemonicParsing="false" onAction="#addCustomerButtonPushed" text="Add" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+            <Tab text="Stock on Hand">
+               <content>
+                  <AnchorPane prefHeight="342.0" prefWidth="800.0">
+                     <children>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="10.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#allStockButtonPushed" prefHeight="50.0" prefWidth="150.0" text="All Stock" />
+                              <Button mnemonicParsing="false" onAction="#searchStockButtonPushed" prefHeight="50.0" prefWidth="150.0" text="Search Stock" />
+                              <TextField fx:id="searchStockTxt" prefHeight="25.0" prefWidth="172.0" />
+                           </children>
+                        </VBox>
+                        <TableView fx:id="stockOnHandTable" layoutY="190.0" prefHeight="355.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                           <columns>
+                              <TableColumn fx:id="stockOnHandIDColoumn" prefWidth="75.0" text="Stock ID" />
+                              <TableColumn fx:id="stockOnHandNameColoumn" prefWidth="299.0" text="Stock Item" />
+                              <TableColumn fx:id="stockOnHandQuantityColoumn" prefWidth="64.0" text="Quantity" />
+                              <TableColumn fx:id="stockOnHandCustomerColoumn" prefWidth="205.0" text="Customer" />
+                              <TableColumn fx:id="stockOnHandTransactioDateColoumn" prefWidth="96.0" text="Arrival Date" />
+                           </columns>
+                        </TableView>
+                        <VBox layoutX="196.0" layoutY="49.0" spacing="10.0">
+                           <children>
+                              <RadioButton fx:id="searchByItem" mnemonicParsing="false" onAction="#searchByButtonSelected" text="Search by Item" />
+                              <RadioButton fx:id="searchByCustomer" mnemonicParsing="false" onAction="#searchByButtonSelected" text="Search By Customer" />
+                              <RadioButton fx:id="searchByReceipt" mnemonicParsing="false" onAction="#searchByButtonSelected" text="Search By Receipt" />
+                              <RadioButton fx:id="searchByDate" mnemonicParsing="false" onAction="#searchByButtonSelected" text="Search By Arrival Date" />
+                           </children>
+                        </VBox>
+                        <DatePicker fx:id="datePicker" layoutX="377.0" layoutY="129.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Receipts">
+               <content>
+                  <AnchorPane prefHeight="342.0" prefWidth="800.0">
+                     <children>
+                        <HBox prefHeight="150.0" prefWidth="324.0" spacing="10.0">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#recieveNewStockButtonPushed" prefHeight="50.0" prefWidth="150.0" text="Receive New Stock" />
+                                    <Button fx:id="stockReceivedHist" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Stock Received History" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <ComboBox fx:id="customersCB" prefWidth="150.0" promptText="Customers">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <ComboBox fx:id="categoryCB" onAction="#categoryCBSelection" prefWidth="150.0" promptText="Category" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="stockReceiptTables" layoutY="186.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <TableView fx:id="receiptsSelectTable" prefHeight="385.0" prefWidth="103.0" HBox.hgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="receiptsStockIDColoumn" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Item ID" />
+                                    <TableColumn fx:id="receiptsStockNameColoumn" minWidth="100.0" prefWidth="172.0" text="Item" />
+                                    <TableColumn fx:id="receiptsStockCategoryColoumn" prefWidth="128.0" text="Category" />
+                                 </columns>
+                              </TableView>
+                              <StackPane prefHeight="150.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#addStockToReceiptButtonPushed" prefWidth="75.0" text="Add ">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <TextField fx:id="newItemQuantityTxt" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0">
+                                       <StackPane.margin>
+                                          <Insets bottom="60.0" />
+                                       </StackPane.margin>
+                                    </TextField>
+                                    <Button layoutY="10.0" mnemonicParsing="false" onAction="#removeStockFromReceiptButtonPushed" prefWidth="75.0" text="Remove ">
+                                       <StackPane.margin>
+                                          <Insets top="70.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#CompleteReceiptButtonPushed" prefHeight="45.0" prefWidth="75.0" text="Complete Order" textAlignment="CENTER" wrapText="true">
+                                       <StackPane.margin>
+                                          <Insets top="300.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#clearStock" prefWidth="75.0" text="Clear">
+                                       <StackPane.margin>
+                                          <Insets top="210.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Label prefHeight="3.0" prefWidth="46.0" text="Quantity">
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <TableView fx:id="newReceiptTable" prefHeight="385.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="newReceiptStockIDColoumn" prefWidth="66.0" text="Item ID" />
+                                    <TableColumn fx:id="newReceiptStockNameColoumn" prefWidth="248.0" text="Item" />
+                                    <TableColumn fx:id="newReceiptStockQuantityColoumn" prefWidth="71.0" text="Quantity" />
+                                    <TableColumn fx:id="newReceiptStockCustomerColoumn" minWidth="0.0" prefWidth="126.0" text="Customer" />
+                                    <TableColumn fx:id="newReceiptStockTransactioDateColoumn" prefWidth="91.0" text="Arrival Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox fx:id="receiveNewStockOptions" layoutX="338.0" layoutY="14.0" prefHeight="97.0" prefWidth="201.0" spacing="10.0" AnchorPane.leftAnchor="338.0" AnchorPane.topAnchor="14.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="New Stock Item" />
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label text="Item Name" />
+                                    <TextField fx:id="newStockItemTxt" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
+                                    <Button mnemonicParsing="false" onAction="#addNewStockButtonPushed" text="Add" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Stock Out">
+               <content>
+                  <AnchorPane prefHeight="342.0" prefWidth="800.0">
+                     <children>
+                        <HBox prefHeight="150.0" prefWidth="324.0" spacing="10.0">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#NewStockRequestButtonPushed" prefHeight="50.0" prefWidth="150.0" text="New Stock Request" />
+                                    <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Stock Request History" />
+                                 </children>
+                              </VBox>
+                              <ComboBox fx:id="stockOutCustomersCB" onAction="#stockOutCustomersCBSelection" prefWidth="150.0" promptText="Customers" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="stockOutTables" layoutY="185.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <TableView fx:id="stockOnHandOutTable" prefHeight="385.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="stockOnHandOutIDColoumn" prefWidth="62.0" text="Item ID" />
+                                  <TableColumn fx:id="stockOnHandNameOutColoumn" prefWidth="151.0" text="Item" />
+                                  <TableColumn fx:id="stockOnHandQuantityOutColoumn" prefWidth="54.0" text="Quantity" />
+                                    <TableColumn fx:id="stockOnHandCustomerOutColoumn" prefWidth="112.0" text="Customer" />
+                                    <TableColumn fx:id="stockOnHandTransactioDateOutColoumn" prefWidth="100.0" text="Arrival Date" />
+                                </columns>
+                              </TableView>
+                              <StackPane prefHeight="150.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#addStockToStockRequestButtonPushed" prefWidth="75.0" text="Add ">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <TextField fx:id="newStockRequestTxt" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0">
+                                       <StackPane.margin>
+                                          <Insets bottom="60.0" />
+                                       </StackPane.margin>
+                                    </TextField>
+                                    <Button layoutY="10.0" mnemonicParsing="false" onAction="#removeStockFromStockRequestButtonPushed" prefWidth="75.0" text="Remove ">
+                                       <StackPane.margin>
+                                          <Insets top="70.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#CompleteNewStockRequestListButtonPushed" prefHeight="45.0" prefWidth="75.0" text="Complete Order" textAlignment="CENTER" wrapText="true">
+                                       <StackPane.margin>
+                                          <Insets top="300.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#clearStockRequestTable" prefWidth="75.0" text="Clear">
+                                       <StackPane.margin>
+                                          <Insets top="210.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Label prefHeight="3.0" prefWidth="46.0" text="Quantity">
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <TableView fx:id="newStockRequestTable" prefHeight="385.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="newStockRequestIDColoumn" prefWidth="57.0" text="Item ID" />
+                                    <TableColumn fx:id="newStockRequestNameColoumn" prefWidth="198.0" text="Item" />
+                                    <TableColumn fx:id="newStockRequestQuantityColoumn" prefWidth="58.0" text="Quantity" />
+                                    <TableColumn fx:id="newStockRequestCustomerColoumn" prefWidth="79.0" text="Customer" />
+                                    <TableColumn fx:id="newStockRequestTransactioDateColoumn" prefWidth="87.0" text="Depature Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="250.0" layoutY="23.0" spacing="5.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

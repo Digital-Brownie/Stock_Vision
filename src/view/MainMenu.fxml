@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="582.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenu">
+   <children>
+      <Pane layoutY="-1.0" prefHeight="105.0" prefWidth="713.0" style="-fx-background-color: #454545;">
+         <children>
+            <Button fx:id="btnLogout" layoutX="21.0" layoutY="31.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" style="-fx-background-color: #019967;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_BOX" size="16" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <AnchorPane layoutX="77.0" layoutY="100.0" prefHeight="249.0" prefWidth="559.0">
+         <children>
+          <AnchorPane layoutX="1.0" layoutY="23.0" prefHeight="371.0" prefWidth="557.0">
+               <children>
+                  <Label layoutX="-62.0" layoutY="-12.0" text="Main Menu">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutY="146.0" prefHeight="105.0" prefWidth="557.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnCustomers" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnCustomersPressed" prefHeight="103.0" prefWidth="126.0" text="Customers" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="ACCOUNT_CIRCLE" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnSuppliers" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="129.0" text="Suppliers" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="DOMAIN" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStock" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="129.0" text="Stock" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="BARCODE" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnEmployees" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="130.0" text="Employees" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="TAG_FACES" size="25" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label layoutX="141.0" layoutY="108.0" text="Please select an option to navigate">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutY="266.0" prefHeight="105.0" prefWidth="557.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnReports" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="126.0" text="Reports" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CHART_BAR" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnSales" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="129.0" text="Sales" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CREDIT_CARD_MULTIPLE" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnInvoices" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="129.0" text="Invoices" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="TABLE_LARGE" size="25" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnSettings" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="103.0" prefWidth="130.0" text="Settings" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="WRENCH" size="25" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="190.0" fitWidth="360.0" layoutX="339.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/image/LOGO(WHITE).png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
