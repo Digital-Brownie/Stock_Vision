@@ -105,19 +105,49 @@ public class Stock_On_Hand
     {
         this.customerCompanyName = new SimpleStringProperty(customerCompanyName);
     }
-
+    
+    public static void insertIntoStockOnHand(ObservableList<Stock_On_Hand> newStock)
+    {
+        try
+        {
+            for (Stock_On_Hand stock : newStock)
+            {
+                PreparedStatement INSERT = DatabaseConnection.getConnection().prepareStatement("INSERT INTO stock_on_hand(StockOnHandName, Quantity, StockID, CustomerID, TransactionDate)VALUES ('"+stock.getStockName()+"', '"+stock.getStockAvailableQuantity()+"', '"+stock.getStockID()+"', '"+stock.getCustomerID()+"', '"+stock.getTransactionDate()+"') ");
+                INSERT.executeUpdate();
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void retrieveStockFromStockOnHand(ObservableList<Stock_On_Hand> newStock)
+    {
+        try
+        {
+            for (Stock_On_Hand stock : newStock)
+            {
+                PreparedStatement INSERT = DatabaseConnection.getConnection().prepareStatement("INSERT INTO stock_on_hand(StockOnHandName, Quantity, StockID, CustomerID)VALUES ('"+stock.getStockName()+"', -"+stock.getStockAvailableQuantity()+", '"+stock.getStockID()+"', '"+stock.getCustomerID()+"') ");
+                INSERT.executeUpdate();
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static ObservableList<Stock_On_Hand> getStockOnHand()
     {   
         ObservableList<Stock_On_Hand> stock = FXCollections.observableArrayList();
         ResultSet result;
         try
         {
-            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_by_customer;");
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_available;");
             result = SELECT.executeQuery();
             
             while (result.next())
             {                               
-                stock.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("ArrivalDate")));
+                stock.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("TransactionDate")));
             }
             
         } catch (Exception e)
@@ -139,7 +169,7 @@ public class Stock_On_Hand
             
             while (result.next())
             {                               
-                stock.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("ArrivalDate")));
+                stock.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("TransactionDate")));
             }
             
         } catch (Exception e)
@@ -157,12 +187,12 @@ public class Stock_On_Hand
         
         try
         {
-            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_by_customer WHERE item = '"+ item +"' OR item LIKE '%"+item+"' OR item LIKE '"+item+"%'; ");
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_available WHERE Item = '"+ item +"' OR Item LIKE '%"+item+"' OR Item LIKE '"+item+"%'; ");
             result = SELECT.executeQuery();
             
             while (result.next())
             {   //(String stockID, String customerID, Integer stockAvailableQuantity, String stockName, String customerCompanyName, String transactionDate)
-                stockItems.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("ArrivalDate")));
+                stockItems.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("TransactionDate")));
             }
             
         } catch (Exception e)
@@ -172,14 +202,14 @@ public class Stock_On_Hand
         return stockItems;
     }
     
-    public static ObservableList<Stock_On_Hand> searchByReceipt(String item)
+    public static ObservableList<Stock_On_Hand> searchByReceipt(String receipt)
     {
         ObservableList<Stock_On_Hand> stockItems = FXCollections.observableArrayList();
         ResultSet result;
         
         try
         {
-            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_by_customer WHERE ReceiptID = '"+item+"'");
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_in_by_customer WHERE ReceiptID = '"+receipt+"'");
             result = SELECT.executeQuery();
             
             while (result.next())
@@ -194,14 +224,36 @@ public class Stock_On_Hand
         return stockItems;
     }
     
-    public static ObservableList<Stock_On_Hand> searchByCustomer(String item)
+    public static ObservableList<Stock_On_Hand> searchByRequest(String request)
     {
         ObservableList<Stock_On_Hand> stockItems = FXCollections.observableArrayList();
         ResultSet result;
         
         try
         {
-            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_by_customer WHERE customerID = '"+item+"' OR Company LIKE '%"+item+"' OR Company LIKE '"+item+"%' ");
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_out_by_customer WHERE ReceiptID = '"+request+"'");
+            result = SELECT.executeQuery();
+            
+            while (result.next())
+            {
+                stockItems.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("ArrivalDate")));
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        
+        return stockItems;
+    }
+    
+    public static ObservableList<Stock_On_Hand> searchByCustomer(String customer)
+    {
+        ObservableList<Stock_On_Hand> stockItems = FXCollections.observableArrayList();
+        ResultSet result;
+        
+        try
+        {
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_available WHERE customerID = '"+customer+"' OR Company LIKE '%"+customer+"' OR Company LIKE '"+customer+"%' ");
             result = SELECT.executeQuery();
             
             while (result.next())
@@ -220,17 +272,17 @@ public class Stock_On_Hand
     {
         ObservableList<Stock_On_Hand> stockItems = FXCollections.observableArrayList();
         ResultSet result;
-        String item = date.format(DateTimeFormatter.ISO_DATE);
-        System.out.println(item);
+        String localDate = date.format(DateTimeFormatter.ISO_DATE);
+        System.out.println(date);
         
         try
         {
-            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_by_customer WHERE ArrivalDate = '"+item+"'");
+            PreparedStatement SELECT = DatabaseConnection.connection.prepareStatement("SELECT * FROM stock_available WHERE TransactionDate = '"+date+"'");
             result = SELECT.executeQuery();
             
             while (result.next())
             {
-                stockItems.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("ArrivalDate")));
+                stockItems.add(new Stock_On_Hand(result.getString("StockID"), result.getString("customerID"), Integer.parseInt(result.getString("Quantity")), result.getString("Item"), result.getString("Company"), result.getString("TransactionDate")));
             }
         } catch (Exception e)
         {

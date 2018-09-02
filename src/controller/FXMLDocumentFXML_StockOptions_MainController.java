@@ -8,7 +8,6 @@ package controller;
 import businessObjects.Customer;
 import businessObjects.Receipt_Item;
 import businessObjects.Stock_Item;
-import businessObjects.Stock_On_Hand;
 import businessObjects.receipt;
 import java.net.URL;
 import java.time.LocalDate;
@@ -79,6 +78,8 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
     private TableColumn<Stock_On_Hand, Integer> stockOnHandQuantityColoumn;
     @FXML
     private TableColumn<Stock_On_Hand, String> stockOnHandCustomerColoumn;
+    @FXML
+    private TableColumn<Stock_On_Hand, String> stockOnHandRecordColoumn;
     @FXML
     private TableColumn<Stock_On_Hand, LocalDate> stockOnHandTransactioDateColoumn;
     ObservableList<Stock_On_Hand> stockOnHandList = FXCollections.observableArrayList();
@@ -299,6 +300,7 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Receipts Tab Events
     @FXML
+    @SuppressWarnings("Convert2Diamond")
     public void recieveNewStockButtonPushed() throws Exception
     {
         receiveNewStockOptions.setVisible(true);
@@ -374,17 +376,10 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
     }
 
     @FXML
+    @SuppressWarnings("Convert2Diamond")
     public void addStockToReceiptButtonPushed() throws Exception
     {
-        Stock_Item selectedStockItem = receiptsSelectTable.getSelectionModel().getSelectedItem();
-
-        System.out.println("selectedStockItem.getStockID(): " + selectedStockItem.getStockID());
-        System.out.println("comboBoxSelection(): " + comboBoxSelection());
-        System.out.println("Integer.parseInt(newItemQuantityTxt.getText()): " + Integer.parseInt(newItemQuantityTxt.getText()));
-        System.out.println("selectedStockItem.getStockName(): " + selectedStockItem.getStockName());
-        System.out.println("Customer.getCustomer(comboBoxSelection()).getCustCompany(): " + Customer.getCustomer(comboBoxSelection()).getCustCompany());
-        System.out.println("Local Date");
-
+        Stock_Item selectedStockItem = receiptsSelectTable.getSelectionModel().getSelectedItem();       
         newReceiptTableList.add(new Stock_On_Hand(selectedStockItem.getStockID(), comboBoxSelection(), Integer.parseInt(newItemQuantityTxt.getText()), selectedStockItem.getStockName(), Customer.getCustomer(comboBoxSelection()).getCustCompany(), LocalDate.now()));
 
         newReceiptStockIDColoumn.setCellValueFactory(new PropertyValueFactory<Stock_On_Hand, String>("stockID"));
@@ -426,6 +421,7 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
 
         receipt.insertReceiptTable(newReceipt);
         Receipt_Item.insertReceiptItemsTable(newReceiptList);
+        Stock_On_Hand.insertIntoStockOnHand(newReceiptTableList);
         clearStock();
         this.stockOnHandList = Stock_On_Hand.getStockOnHand();
     }
@@ -433,6 +429,7 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Stock Out Tab
     @FXML
+    @SuppressWarnings("Convert2Diamond")
     public void NewStockRequestButtonPushed() throws Exception
     {
 
@@ -463,6 +460,7 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
     }
 
     @FXML
+    @SuppressWarnings("Convert2Diamond")
     public void addStockToStockRequestButtonPushed() throws Exception
     {
         Stock_On_Hand selectedStockItem = stockOnHandOutTable.getSelectionModel().getSelectedItem();
@@ -508,12 +506,14 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
         //newStockRequestList
         stock_request.insertStockRequestTable(newStockRequest);
         stock_request_item.insertRequestItemsTable(newRequestList);
+        Stock_On_Hand.retrieveStockFromStockOnHand(newStockRequestList);
         clearStock();
         this.stockOnHandList = Stock_On_Hand.getStockOnHand();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
+    @SuppressWarnings("Convert2Diamond")
     public void initialize(URL url, ResourceBundle rb)
     {
 
@@ -563,6 +563,7 @@ public class FXMLDocumentFXML_StockOptions_MainController implements Initializab
         stockOnHandQuantityColoumn.setCellValueFactory(new PropertyValueFactory<Stock_On_Hand, Integer>("stockAvailableQuantity"));
         stockOnHandCustomerColoumn.setCellValueFactory(new PropertyValueFactory<Stock_On_Hand, String>("customerCompanyName"));
         stockOnHandTransactioDateColoumn.setCellValueFactory(new PropertyValueFactory<Stock_On_Hand, LocalDate>("transactionDate"));
+        stockOnHandRecordColoumn.setCellValueFactory(new PropertyValueFactory<Stock_On_Hand, String>(""));
         stockOnHandTable.setItems(stockOnHandList);
 
         //Radio Buttons

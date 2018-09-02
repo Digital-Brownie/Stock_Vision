@@ -155,8 +155,9 @@ public class Customer
     
     public static void deleteCustomer(String custCode) throws Exception
     {
-        PreparedStatement delete = DatabaseConnection.getConnection().prepareStatement("DELETE from customer WHERE customerID =' "+custCode+" ';");
-        delete.executeUpdate();                            
+        PreparedStatement delete = DatabaseConnection.getConnection().prepareStatement("DELETE from customer WHERE customerID = '"+custCode+"';");
+        delete.executeUpdate();        
+        decrementKey(custCode);
     } 
     
     public static void incrementKey(String itemCode) throws SQLException
@@ -164,6 +165,14 @@ public class Customer
         String code = itemCode.substring(0, 3);        
         
         PreparedStatement UPDATE = DatabaseConnection.connection.prepareStatement("update invento_systems.keys set "+code+" = "+code+" + 1 Where keyID = 1; ");
+        UPDATE.executeUpdate();
+    }
+    
+    public static void decrementKey(String custCode) throws SQLException
+    {
+        String code = custCode.substring(0, 3);        
+        
+        PreparedStatement UPDATE = DatabaseConnection.connection.prepareStatement("update invento_systems.keys set "+code+" = "+code+" - 1 Where keyID = 1; ");
         UPDATE.executeUpdate();
     }
     

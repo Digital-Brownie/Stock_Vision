@@ -93,10 +93,11 @@
                         <TableView fx:id="stockOnHandTable" layoutY="190.0" prefHeight="355.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
                            <columns>
                               <TableColumn fx:id="stockOnHandIDColoumn" prefWidth="75.0" text="Stock ID" />
-                              <TableColumn fx:id="stockOnHandNameColoumn" prefWidth="299.0" text="Stock Item" />
-                              <TableColumn fx:id="stockOnHandQuantityColoumn" prefWidth="64.0" text="Quantity" />
+                              <TableColumn fx:id="stockOnHandNameColoumn" prefWidth="234.0" text="Stock Item" />
+                              <TableColumn fx:id="stockOnHandQuantityColoumn" prefWidth="129.0" text="Quantity" />
                               <TableColumn fx:id="stockOnHandCustomerColoumn" prefWidth="205.0" text="Customer" />
-                              <TableColumn fx:id="stockOnHandTransactioDateColoumn" prefWidth="96.0" text="Arrival Date" />
+                              <TableColumn fx:id="stockOnHandTransactioDateColoumn" prefWidth="116.0" text="Arrival Date" />
+                              <TableColumn prefWidth="93.0" text="Receipt" />
                            </columns>
                         </TableView>
                         <VBox layoutX="196.0" layoutY="49.0" spacing="10.0">
@@ -118,10 +119,10 @@
                      <children>
                         <HBox prefHeight="150.0" prefWidth="324.0" spacing="10.0">
                            <children>
-                              <VBox spacing="10.0">
+                              <VBox prefHeight="115.0" prefWidth="150.0" spacing="10.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#recieveNewStockButtonPushed" prefHeight="50.0" prefWidth="150.0" text="Receive New Stock" />
-                                    <Button fx:id="stockReceivedHist" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Stock Received History" />
+                                    <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="New Stock Item" />
                                  </children>
                               </VBox>
                               <VBox spacing="5.0">
@@ -195,7 +196,6 @@
                         </HBox>
                         <VBox fx:id="receiveNewStockOptions" layoutX="338.0" layoutY="14.0" prefHeight="97.0" prefWidth="201.0" spacing="10.0" AnchorPane.leftAnchor="338.0" AnchorPane.topAnchor="14.0">
                            <children>
-                              <Button mnemonicParsing="false" text="New Stock Item" />
                               <VBox spacing="10.0">
                                  <children>
                                     <Label text="Item Name" />
